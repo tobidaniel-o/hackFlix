@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import {Link} from 'react-router-dom'
 
 const Catalogue = () => {
   const [movies, setMovies] = useState([]);
@@ -15,7 +16,7 @@ const Catalogue = () => {
         include_adult: "false",
         include_video: "false",
         page: 1,
-        primary_release_year: 2020,
+        primary_release_year: 2017,
       },
     }).then((response) => {
       setMovies(response.data.results);
@@ -26,10 +27,12 @@ const Catalogue = () => {
       {movies.map((movie) => {
         return (
           <div className="movie" key={movie.id}>
-            <img
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt={`Poster for ${movie.original_title}`}
-            />
+            <Link to={`/movie/${movie.id}`}>
+              <img
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                alt={`Poster for ${movie.original_title}`}
+              />
+            </Link>
           </div>
         );
       })}
